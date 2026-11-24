@@ -13,12 +13,13 @@ import frc.robot.subsystems.Arm;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  public static Command exampleAuto(Drive m_Drive, Arm m_Arm) {
+  public static Command exampleAuto(Drive m_Drive) {
     return Commands.run(
       () -> m_Drive.TankDrive(-0.5, -0.5)
       , m_Drive)
-    .withTimeout(0.5)
-    .andThen(Commands.run(() -> m_Arm.leftArmMethod(1), m_Arm));
+    .withTimeout(1.5)
+    .andThen(Commands.run(() -> m_Drive.TankDrive(0.25, -0.25), m_Drive)).withTimeout(1)
+    .andThen(Commands.run(() -> m_Drive.TankDrive(1, 1), m_Drive));
   }
 
   private Autos() {

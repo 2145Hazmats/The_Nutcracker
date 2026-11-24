@@ -45,13 +45,14 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_drive.setDefaultCommand(Commands.run(() -> m_drive.ArcadeDrive(P1Controller.getLeftY(), P1Controller.getRightX()), m_drive));
+
     P1Controller.rightBumper().whileTrue(Commands.run(() -> 
     m_drive.ArcadeDrive(P1Controller.getLeftY() * 0.5,  P1Controller.getRightX() * 0.5), 
     m_drive));
 
-    m_Arm.setDefaultCommand(Commands.run(() -> m_Arm.leftArmMethod(P2Controller.getRightY()), m_Arm));
-    //m_Arm.setDefaultCommand(Commands.run(() -> m_Arm.rightArmMethod(P2Controller.getRightY()), m_Arm));
-
+    m_Arm.setDefaultCommand(Commands.run(() -> m_Arm.leftArmMethod(-1)), m_Arm);
+    P2Controller.b().whileTrue(Commands.run(() -> m_Arm.leftArmMethod(1)), m_Arm);
+    
   }
 
   /**
@@ -61,6 +62,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_drive, m_Arm);
+    return Autos.exampleAuto(m_drive);
   }
 }
